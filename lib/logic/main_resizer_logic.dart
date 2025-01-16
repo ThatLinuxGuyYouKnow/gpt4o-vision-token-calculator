@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:html' as html;
 
-class SvgToPngConverter {
+class CalculationLogic {
   final String svgContent;
   final int? scaleWidthBy;
   final int? scaleHeightBy;
 
-  SvgToPngConverter({
+  CalculationLogic({
     required this.svgContent,
     this.scaleWidthBy,
     this.scaleHeightBy,
