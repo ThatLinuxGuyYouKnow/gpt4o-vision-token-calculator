@@ -22,7 +22,7 @@ class CalculationLogic {
       final int originalWidth = image.naturalWidth;
       final int originalHeight = image.naturalHeight;
 
-      if (originalWidth <= 2048 && originalHeight <= 2048) {}
+      if (originalWidth > 2048 && originalHeight > 2048) {}
       // Calculate scaled dimensions
       final width = scaleWidthBy != null
           ? (originalWidth * scaleWidthBy!).toInt()
@@ -33,7 +33,7 @@ class CalculationLogic {
 
       print('Original dimensions: $originalWidth x $originalHeight');
       print('Scaled dimensions: $width x $height');
-
+//TODO: WHEN I WANT TO CHECK NUMBER OF TILES AN IMAGE CAN TAKE I CAN DO AREA OF IMAGE/ ARE OF 512 IMAGE
       // Create canvas with scaled dimensions
       final canvasElement = html.CanvasElement(
         width: width,
