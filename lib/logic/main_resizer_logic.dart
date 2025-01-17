@@ -4,15 +4,12 @@ import 'dart:html' as html;
 
 class CalculationLogic {
   final String svgContent;
-  final int? scaleWidthBy;
-  final int? scaleHeightBy;
 
   CalculationLogic({
     required this.svgContent,
-    this.scaleWidthBy,
-    this.scaleHeightBy,
   });
-
+  num height = 0.0;
+  num width = 0.0;
   Future<String> convertSvgToPng() async {
     try {
       // Load the image to get its original dimensions
@@ -22,23 +19,21 @@ class CalculationLogic {
       final int originalWidth = image.naturalWidth;
       final int originalHeight = image.naturalHeight;
 
-      if (originalWidth > 2048 && originalHeight > 2048) {}
-      // Calculate scaled dimensions
-      final width = scaleWidthBy != null
-          ? (originalWidth * scaleWidthBy!).toInt()
-          : originalWidth;
-      final height = scaleHeightBy != null
-          ? (originalHeight * scaleHeightBy!).toInt()
-          : originalHeight;
+      if (originalWidth > 2048 || originalHeight > 2048) {
+        var aspect_ratio = originalWidth / originalHeight;
+        (aspect_ratio > 1)
+            ? {
+                // so image is not a square
+              }
+            : {};
+      }
 
-      print('Original dimensions: $originalWidth x $originalHeight');
-      print('Scaled dimensions: $width x $height');
 //TODO: WHEN I WANT TO CHECK NUMBER OF TILES AN IMAGE CAN TAKE I CAN DO AREA OF IMAGE/ ARE OF 512 IMAGE
       // Create canvas with scaled dimensions
       final canvasElement = html.CanvasElement(
-        width: width,
-        height: height,
-      );
+          //     width: width,
+          //      height: height,
+          );
       final context = canvasElement.context2D;
 
       // Clear the canvas first
