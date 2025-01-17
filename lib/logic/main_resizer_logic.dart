@@ -20,10 +20,11 @@ class CalculationLogic {
       final int originalHeight = image.naturalHeight;
 
       if (originalWidth > 2048 || originalHeight > 2048) {
-        var aspect_ratio = originalWidth / originalHeight;
+        double aspect_ratio = originalWidth / originalHeight;
         (aspect_ratio > 1)
             ? {
-                // so image is not a square
+                width,
+                height = 2048,
               }
             : {};
       }
