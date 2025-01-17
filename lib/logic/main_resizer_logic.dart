@@ -25,7 +25,8 @@ class CalculationLogic {
             ? {
                 width,
                 height = 2048,
-              }
+                (2048 * originalHeight) / originalWidth
+              } //also translates directly to 2048 * 1 / aspect_ratio or just 2048 / aspect_ratio
             : {};
       }
 
