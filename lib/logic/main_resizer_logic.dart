@@ -15,7 +15,7 @@ class SvgToPngConverter {
 
   Future<String> convertSvgToPng() async {
     try {
-      // Load the SVG image to get original dimensions
+      // Load the image to get its original dimensions
       final image = await _svgToImage();
 
       // Get original dimensions
