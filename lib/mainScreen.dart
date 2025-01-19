@@ -26,20 +26,27 @@ class Mainscreen extends StatelessWidget {
               color: Colors.black,
             )),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: 20,
-          ),
-          Container(
-            decoration: BoxDecoration(
-                color: Colors.black87, borderRadius: BorderRadius.circular(20)),
-            width: isSmallScreenHeight ? 200 : 400,
-            child: Center(
-              child: Icon(Icons.upload_file),
-            ),
-          )
-        ],
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              height: 400,
+              decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black87),
+                  borderRadius: BorderRadius.circular(20)),
+              width: isSmallScreenHeight ? 200 : 400,
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.upload_file),
+                    Text('Upload your Image')
+                  ],
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
