@@ -68,6 +68,7 @@ class TokenCalculator {
 
     // Show results in a dialog
     showDialog(
+      // ignore: use_build_context_synchronously
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
