@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:gpt4_image_token_count/logic/getDimensions.dart';
 import 'package:gpt4_image_token_count/logic/pickFile.dart';
 
@@ -14,12 +15,10 @@ class _MainscreenState extends State<Mainscreen> {
 
   Future<void> handleImageUpload() async {
     final imageFile = await pickImageFile();
-    if (imageFile == null) return; // Add null check
+    if (imageFile == null) return;
 
     final calculator = TokenCalculator(imageFile: imageFile);
-    final dimensions = await calculator.resizeAndCalculate();
-    // TODO: Handle the dimensions result
-    print('Resized dimensions: ${dimensions['width']}x${dimensions['height']}');
+    await calculator.resizeAndCalculate(context);
   }
 
   @override
@@ -39,7 +38,10 @@ class _MainscreenState extends State<Mainscreen> {
             const SizedBox(width: 20),
             const Icon(Icons.seven_k),
             SizedBox(width: isSmallScreenWidth ? 20 : 40),
-            const Text('GP4o Vision Tokens'),
+            Text(
+              'GP4o Vision Tokens',
+              style: GoogleFonts.ubuntu(fontSize: 15),
+            ),
           ],
         ),
         bottom: const PreferredSize(

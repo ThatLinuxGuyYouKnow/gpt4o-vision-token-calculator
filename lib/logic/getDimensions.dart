@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'dart:html' as html;
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 
 class TokenCalculator {
   final html.File imageFile;
@@ -24,23 +27,63 @@ class TokenCalculator {
     return completer.future;
   }
 
-  Future<Map<String, int>> resizeAndCalculate() async {
+  Future<void> resizeAndCalculate(BuildContext context) async {
     final dimensions = await getDimensions();
-    var (imgWidth, imgHeight) =
-        (dimensions['width'] ?? 0, dimensions['height'] ?? 0);
-    double resizedHeight = 0;
-    double resizedWidth = 0;
-    // Calculate new dimensions
-    if (imgWidth > 2048 || imgHeight > 2048) {
-      double aspectRatio = imgWidth / imgHeight;
+    double width = (dimensions['width'] ?? 0).toDouble();
+    double height = (dimensions['height'] ?? 0).toDouble();
+
+    // Scale to fit within 2048x2048
+    if (width > 2048 || height > 2048) {
+      double aspectRatio = width / height;
       if (aspectRatio > 1) {
-        (resizedHeight, resizedWidth) = (2048 / aspectRatio, 2048);
+        width = 2048;
+        height = 2048 / aspectRatio;
       } else {
-        (resizedHeight, resizedWidth) = (2048, 2048 * aspectRatio);
+        width = 2048 * aspectRatio;
+        height = 2048;
       }
     }
-    double areaWithResized = resizedWidth * resizedHeight;
-    print(dimensions);
-    return dimensions;
+
+    // Scale shortest side to 768px
+    if (width >= height && height > 768) {
+      width = (768 / height) * width;
+      height = 768;
+    } else if (height > width && width > 768) {
+      height = (768 / width) * height;
+      width = 768;
+    }
+
+    // Calculate tiles needed
+    int tilesWidth = (width / 512).ceil();
+    int tilesHeight = (height / 512).ceil();
+    int totalTiles = tilesWidth * tilesHeight;
+
+    // Calculate tokens
+    double totalTokens = 85 + 170 * totalTiles.toDouble();
+
+    print('Final dimensions: ${width.round()}x${height.round()}');
+    print('Tiles: $tilesWidth x $tilesHeight = $totalTiles');
+    print('Total tokens: $totalTokens');
+
+    // Show results in a dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Image Calculation Results'),
+          content: Text(
+            'Final dimensions: ${width.round()}x${height.round()}\n'
+            'Tiles: $tilesWidth x $tilesHeight = $totalTiles\n'
+            'Total tokens: $totalTokens',
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
