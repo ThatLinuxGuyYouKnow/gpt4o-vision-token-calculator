@@ -3,6 +3,7 @@ import 'dart:html' as html;
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class TokenCalculator {
   final html.File imageFile;
@@ -70,7 +71,11 @@ class TokenCalculator {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text('Image Calculation Results'),
+          title: Text(
+            'Token Calculation Results',
+            style:
+                GoogleFonts.ubuntu(fontSize: 15, fontWeight: FontWeight.bold),
+          ),
           content: Text(
             'Final dimensions: ${width.round()}x${height.round()}\n'
             'Tiles: $tilesWidth x $tilesHeight = $totalTiles\n'
